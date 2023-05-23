@@ -1,0 +1,32 @@
+ .wrap {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+
+ .menu {
+     display: flex;
+     gap: 52px;
+ }
+
+ .radio {
+     display: flex;
+     align-items: center;
+     gap: 40px;
+ }
+
+ .sortBtns {
+     display: flex;
+     gap: 12px;
+ }
+
+ .newArray {
+     margin-left: 28px;
+ }
+
+ .columns {
+     display: flex;
+     gap: 10px;
+     align-items: end;
+     margin-top: 48px;
+ }

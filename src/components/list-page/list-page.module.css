@@ -1,0 +1,38 @@
+.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: 204px repeat(4, 175px);
+    grid-template-rows: 60px 60px;
+    gap: 38px 12px;
+    margin-bottom: 60px;
+}
+
+.addToIndex {
+    grid-column-start: 2;
+    grid-column-end: 4;
+}
+
+.delToIndex {
+    grid-column-start: 4;
+    grid-column-end: 6;
+}
+
+.circles {
+    display: flex;
+    gap: 35px 16px;
+    flex-wrap: wrap;
+}
+
+.circle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
