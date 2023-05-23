@@ -144,11 +144,17 @@ export class LinkedList<T> {
     return elements;
   }
 
-  getHead(): T | null {
-    return this.head ? this.head.value : null;
+  getHead(): { value: T; index: number } | undefined {
+    if (this.head) {
+      return { value: this.head.value, index: 0 };
+    }
+    return undefined;
   }
 
-  getTail(): T | null {
-    return this.tail ? this.tail.value : null;
+  getTail(): { value: T; index: number } | undefined {
+    if (this.tail) {
+      return { value: this.tail.value, index: this.size - 1 };
+    }
+    return undefined;
   }
 }

@@ -76,6 +76,37 @@ export const ListPage: React.FC = () => {
         </div>
       );
     }
+
+    if (list.getElements().length - 1 === index) {
+      return (
+        <div className={css.circle}>
+          <Circle
+            tail="tail"
+            key={index}
+            letter={l}
+            state={arrStates[index]}
+            index={index}
+          />
+          {len - 1 !== index ? <ArrowIcon /> : null}
+        </div>
+      );
+    }
+    if (list.getHead()) {
+      if (list.getHead()?.index === index) {
+        return (
+          <div className={css.circle}>
+            <Circle
+              head={"head"}
+              key={index}
+              letter={l}
+              state={arrStates[index]}
+              index={index}
+            />
+            {len - 1 !== index ? <ArrowIcon /> : null}
+          </div>
+        );
+      }
+    }
     return (
       <div className={css.circle}>
         <Circle key={index} letter={l} state={arrStates[index]} index={index} />

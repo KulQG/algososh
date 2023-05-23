@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
-import css from "./fibonacchi-page.module.css";
+import css from "./fibonacci-page.module.css";
 import { InputAndButton } from "../ui/inputAndButton/InputAndButton";
 import { Circle } from "../ui/circle/circle";
 
