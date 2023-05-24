@@ -14,11 +14,12 @@ export const SortingPage: React.FC = () => {
     arr: [],
   });
   const [showColumns, setShowColumns] = useState(false);
-  const [method, setMethod] = useState("selection");
+  const [method, setMethod] = useState<'selection' | 'bubble'>("selection");
   const [arrStates, setArrStates] = useState<ElementStates[]>([]);
   const [isActiveAsc, setIsActiveAsc] = useState(false);
   const [isActiveDesc, setIsActiveDesc] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [isArray, setIsArray] = useState(false)
 
   const getColumns = () => {
     if (!showColumns) {
@@ -34,10 +35,15 @@ export const SortingPage: React.FC = () => {
     setShowColumns(true);
   }, [randomArray]);
 
+  useEffect(() => {
+    handleNewArray()
+  }, [])
+
   const handleNewArray = () => {
     const newArr = randomArr();
     setRandomArray({ arr: newArr });
     setArrStates([]);
+    setIsArray(true)
   };
 
   function AscDeskSetSwitcher(order: "asc" | "desc", boo: boolean) {
@@ -205,13 +211,13 @@ export const SortingPage: React.FC = () => {
               checked={method === "selection"}
               onClick={() => setMethod("selection")}
               label="Выбор"
-              disabled={isActive}
+              disabled={isActive || !isArray}
             />
             <RadioInput
               checked={method === "bubble"}
               onClick={() => setMethod("bubble")}
               label="Пузырек"
-              disabled={isActive}
+              disabled={isActive || !isArray}
             />
           </div>
           <div className={css.sortBtns}>
@@ -219,14 +225,14 @@ export const SortingPage: React.FC = () => {
               text="По возрастанию"
               onClick={() => sorting("asc")}
               sorting={Direction.Ascending}
-              disabled={isActive}
+              disabled={isActive || !isArray}
               isLoader={isActiveAsc}
             />
             <Button
               text="По убыванию"
               onClick={() => sorting("desc")}
               sorting={Direction.Descending}
-              disabled={isActive}
+              disabled={isActive || !isArray}
               isLoader={isActiveDesc}
             />
           </div>

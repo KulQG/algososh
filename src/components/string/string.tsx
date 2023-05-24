@@ -6,6 +6,8 @@ import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 import { InputAndButton } from "../ui/inputAndButton/InputAndButton";
 import { swap } from "../../constants/swap";
+import { Input } from "../ui/input/input";
+import { Button } from "../ui/button/button";
 
 export const StringComponent: React.FC = () => {
   const [string, setString] = useState(""); // Строка введенная пользователем
@@ -54,6 +56,7 @@ export const StringComponent: React.FC = () => {
         setIsActive(false);
       }
     }, 1000);
+    setString("");
   };
 
   useEffect(() => {
@@ -70,17 +73,25 @@ export const StringComponent: React.FC = () => {
   return (
     <SolutionLayout title="Строка">
       <div className={css.wrap}>
-        <InputAndButton
-          placeholder="Введите текст"
-          isLimit={true}
-          maxLength={11}
-          btnText="Развернуть"
-          loader={isActive}
-          change={handleInputChange}
-          click={handleBtn}
-        />
+        <div className={css.main}>
+          <Input
+            placeholder='Введите текст'
+            isLimitText={true}
+            maxLength={11}
+            onChange={handleInputChange}
+            value={string}
+          />
+          <Button
+            text='Развернуть'
+            type="button"
+            isLoader={isActive}
+            onClick={handleBtn}
+            disabled={string === ''}
+          />
+        </div>
         <div className={css.circles}>{getCircles(arrStr)}</div>
       </div>
     </SolutionLayout>
   );
 };
+

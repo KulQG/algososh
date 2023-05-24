@@ -36,7 +36,7 @@ export const ListPage: React.FC = () => {
   const listCircles = list.getElements().map((l, index) => {
     if (miniCircles[index]) {
       return (
-        <div className={css.circle}>
+        <div key={index} className={css.circle}>
           <Circle
             head={
               <Circle
@@ -57,7 +57,7 @@ export const ListPage: React.FC = () => {
     }
     if (downMiniCircles[index]) {
       return (
-        <div className={css.circle}>
+        <div key={index} className={css.circle}>
           <Circle
             tail={
               <Circle
@@ -79,7 +79,7 @@ export const ListPage: React.FC = () => {
 
     if (list.getElements().length - 1 === index) {
       return (
-        <div className={css.circle}>
+        <div key={index} className={css.circle}>
           <Circle
             tail="tail"
             key={index}
@@ -94,7 +94,7 @@ export const ListPage: React.FC = () => {
     if (list.getHead()) {
       if (list.getHead()?.index === index) {
         return (
-          <div className={css.circle}>
+          <div key={index} className={css.circle}>
             <Circle
               head={"head"}
               key={index}
@@ -108,7 +108,7 @@ export const ListPage: React.FC = () => {
       }
     }
     return (
-      <div className={css.circle}>
+      <div key={index} className={css.circle}>
         <Circle key={index} letter={l} state={arrStates[index]} index={index} />
         {len - 1 !== index ? <ArrowIcon /> : null}
       </div>
@@ -219,7 +219,6 @@ export const ListPage: React.FC = () => {
           setIsActive(false);
           setBtns(btns);
         }, 500);
-        //arrStates[+indexString] = ElementStates.Default;
       }
     }, 500);
     setValue("");
@@ -326,13 +325,13 @@ export const ListPage: React.FC = () => {
             text={"Добавить в tail"}
           />
           <Button
-            disabled={isActive || value !== "" || indexString !== ""}
+            disabled={isActive || indexString !== "" || len < 1}
             isLoader={btns.delHead}
             onClick={deleteToHead}
             text={"Удалить в head"}
           />
           <Button
-            disabled={isActive || value !== "" || indexString !== ""}
+            disabled={isActive || indexString !== "" || len < 1}
             isLoader={btns.delTail}
             onClick={deleteToTail}
             text={"Удалить из tail"}
@@ -340,6 +339,7 @@ export const ListPage: React.FC = () => {
           <Input
             onChange={handleInputIndexChange}
             placeholder="Введите индекс"
+            type="number"
             value={indexString}
           />
           <Button
@@ -347,14 +347,26 @@ export const ListPage: React.FC = () => {
             isLoader={btns.addIndex}
             extraClass={css.addToIndex}
             text={"Добавить по индексу"}
-            disabled={isActive || value === "" || indexString === ""}
+            disabled={
+              isActive ||
+              value === "" ||
+              indexString === "" ||
+              +indexString < 0 ||
+              +indexString > len
+            }
           />
           <Button
             onClick={deleteToIndex}
             isLoader={btns.delIndex}
             extraClass={css.delToIndex}
             text={"Удалить по индексу"}
-            disabled={isActive || value !== "" || indexString === ""}
+            disabled={
+              isActive ||
+              indexString === "" ||
+              +indexString < 0 ||
+              +indexString > len - 1 ||
+              len < 1
+            }
           />
         </div>
         <div className={css.circles}>{listCircles}</div>

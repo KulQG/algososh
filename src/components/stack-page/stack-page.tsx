@@ -1,72 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import css from "./stack-page.module.css";
 import { InputAndButton } from "../ui/inputAndButton/InputAndButton";
 import { Button } from "../ui/button/button";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
-
-interface IStack<T> {
-  push: (item: T) => void;
-  pop: () => void;
-  peak: () => void;
-  getSize: () => number;
-  getElements: () => T[];
-  clear: () => void;
-}
-
-export class Stack<T> implements IStack<T> {
-  private container: T[] = [];
-
-  push = (item: T): void => {
-    this.container.push(item);
-  };
-
-  pop = (): void => {
-    if (this.container.length !== 0) {
-      this.container.pop();
-    }
-  };
-
-  peak = (): T | null => {
-    if (this.container.length === 0) {
-      return null;
-    }
-    return this.container[this.container.length - 1];
-  };
-
-  clear = (): void => {
-    this.container = [];
-  };
-
-  getSize = (): number => this.container.length;
-
-  getElements = () => this.container;
-}
-
-export const delay = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+import { Stack } from "./stack";
+import { delay } from "../../constants/delay";
+import { Input } from "../ui/input/input";
 
 export const StackPage: React.FC = () => {
   const [string, setString] = useState("");
   const [stack, setStack] = useState(new Stack<string>());
   const [arrStates, setArrStates] = useState<ElementStates[]>([]);
 
+  const [isActive, setIsActive] = useState(false);
+  const [isAddActive, setAddIsActive] = useState(false);
+  const [isRemoveActive, setRemoveIsActive] = useState(false);
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setString(event.target.value);
   };
 
   const handleAddBtn = async () => {
+    setIsActive(true);
+    setAddIsActive(true);
+
     stack.push(string);
     setStack(stack);
     setArrStates([...arrStates, ElementStates.Changing]);
     await delay(500);
     setArrStates([...arrStates, ElementStates.Default]);
+
     setString("");
+    setIsActive(false);
+    setAddIsActive(false);
   };
 
   const handleRemoveBtn = async () => {
+    setRemoveIsActive(true);
+    setIsActive(true);
+
     if (stack.getSize() === 0) {
+      setRemoveIsActive(false);
+      setIsActive(false);
       return;
     }
 
@@ -78,6 +55,9 @@ export const StackPage: React.FC = () => {
     stack.pop();
     setStack(stack);
     setArrStates([...arrStates.slice(0, arrStates.length - 1)]);
+
+    setRemoveIsActive(false);
+    setIsActive(false);
   };
 
   const handleClearBtn = () => {
@@ -115,18 +95,33 @@ export const StackPage: React.FC = () => {
     <SolutionLayout title="Стек">
       <div className={css.wrap}>
         <div className={css.menu}>
-          <InputAndButton
-            placeholder=""
-            value={string}
-            isLimit={true}
-            maxLength={4}
-            btnText="Добавить"
-            change={handleInputChange}
-            click={handleAddBtn}
-          >
-            <Button text="Удалить" onClick={handleRemoveBtn} />
-          </InputAndButton>
-          <Button text="Очистить" onClick={handleClearBtn} />
+          <div className={css.main}>
+            <Input
+              placeholder="Введите текст"
+              isLimitText={true}
+              maxLength={4}
+              onChange={handleInputChange}
+              value={string}
+            />
+            <Button
+              text="Добавить"
+              type="button"
+              isLoader={isAddActive}
+              onClick={handleAddBtn}
+              disabled={string === "" || isActive}
+            />
+            <Button
+              isLoader={isRemoveActive}
+              disabled={isActive || stack.getSize() === 0}
+              text="Удалить"
+              onClick={handleRemoveBtn}
+            />
+          </div>
+          <Button
+            disabled={isActive || stack.getSize() === 0}
+            text="Очистить"
+            onClick={handleClearBtn}
+          />
         </div>
         <div className={css.circles}>{getCircles()}</div>
       </div>

@@ -10,3 +10,9 @@
     display: flex;
     gap: 16px;
 }
+
+.inputButton {
+    max-width: 500px;
+    display: flex;
+    gap: 16px;
+}
