@@ -4,7 +4,6 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import css from "./string.module.css";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
-import { InputAndButton } from "../ui/inputAndButton/InputAndButton";
 import { swap } from "../../constants/swap";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
@@ -66,7 +65,13 @@ export const StringComponent: React.FC = () => {
   const getCircles = (arr: string[]) => {
     return arr.map((l, index) => {
       const k = index;
-      return <Circle state={arrStates[index]} key={k} letter={l} />;
+      return (
+        <Circle
+          state={arrStates[index]}
+          key={k}
+          letter={l}
+        />
+      );
     });
   };
 
@@ -75,18 +80,18 @@ export const StringComponent: React.FC = () => {
       <div className={css.wrap}>
         <div className={css.main}>
           <Input
-            placeholder='Введите текст'
+            placeholder="Введите текст"
             isLimitText={true}
             maxLength={11}
             onChange={handleInputChange}
             value={string}
           />
           <Button
-            text='Развернуть'
+            text="Развернуть"
             type="button"
             isLoader={isActive}
             onClick={handleBtn}
-            disabled={string === ''}
+            disabled={string === ""}
           />
         </div>
         <div className={css.circles}>{getCircles(arrStr)}</div>
@@ -94,4 +99,3 @@ export const StringComponent: React.FC = () => {
     </SolutionLayout>
   );
 };
-
