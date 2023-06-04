@@ -16,6 +16,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/recursion" element={<StringComponent />} />
           <Route path="/fibonacci" element={<FibonacciPage />} />
           <Route path="/list" element={<ListPage />} />
           <Route path="/queue" element={<QueuePage />} />

@@ -1,30 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button Кнопка рендерится без ошибок 1`] = `
-<button
-  className="text text_type_button text_color_primary button undefined false "
-  type="button"
->
-  <p
-    className="text undefined"
-  />
-</button>
-`;
-
-exports[`Button Кнопка рендерится без ошибок 2`] = `
-<button
-  className="text text_type_button text_color_primary button undefined false "
-  type="button"
->
-  <p
-    className="text undefined"
-  >
-    Кнопка
-  </p>
-</button>
-`;
-
-exports[`Button Кнопка рендерится без ошибок 3`] = `
+exports[`Button disаbled button 1`] = `
 <button
   className="text text_type_button text_color_primary button undefined false "
   disabled={true}
@@ -38,7 +14,7 @@ exports[`Button Кнопка рендерится без ошибок 3`] = `
 </button>
 `;
 
-exports[`Button Кнопка рендерится без ошибок 4`] = `
+exports[`Button loader button 1`] = `
 <button
   className="text text_type_button text_color_primary button undefined loader "
   disabled={true}
@@ -49,5 +25,29 @@ exports[`Button Кнопка рендерится без ошибок 4`] = `
     className="loader_icon"
     src="loader.svg"
   />
+</button>
+`;
+
+exports[`Button no text button 1`] = `
+<button
+  className="text text_type_button text_color_primary button undefined false "
+  type="button"
+>
+  <p
+    className="text undefined"
+  />
+</button>
+`;
+
+exports[`Button text button 1`] = `
+<button
+  className="text text_type_button text_color_primary button undefined false "
+  type="button"
+>
+  <p
+    className="text undefined"
+  >
+    Кнопка
+  </p>
 </button>
 `;

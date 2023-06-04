@@ -4,28 +4,28 @@ import { render, fireEvent } from '@testing-library/react';
 import { Button } from "./button";
 
 describe('Button', () => {
-  it("Кнопка рендерится без ошибок", () => {
+  it("no text button", () => {
     const tree = renderer
       .create(<Button />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it("Кнопка рендерится без ошибок", () => {
+  it("text button", () => {
     const tree = renderer
       .create(<Button text="Кнопка" />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it("Кнопка рендерится без ошибок", () => {
+  it("disаbled button", () => {
     const tree = renderer
       .create(<Button text="Кнопка" disabled />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it("Кнопка рендерится без ошибок", () => {
+  it("loader button", () => {
     const tree = renderer
       .create(<Button isLoader />)
       .toJSON();
@@ -42,14 +42,7 @@ describe('Button', () => {
     expect(onClickMock).toHaveBeenCalledTimes(1);
   })
 
-  test('Коллбек кнопки работает как надо', () => {
-    const onClickMock = jest.fn()
-
-    const { getByText } = render(<Button text="clickMe" onClick={onClickMock} />)
-    const button = getByText('clickMe')
-
-    fireEvent.click(button)
-  })
+  
 
   test('Тест вызова алерта', () => {
     const alertMock = jest.fn();

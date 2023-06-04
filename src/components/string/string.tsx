@@ -7,6 +7,7 @@ import { ElementStates } from "../../types/element-states";
 import { swap } from "../../constants/swap";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
+import { reverseAlg } from "../../constants/reverseString";
 
 export const StringComponent: React.FC = () => {
   const [string, setString] = useState(""); // Строка введенная пользователем
@@ -28,33 +29,13 @@ export const StringComponent: React.FC = () => {
       () => ElementStates.Default
     ); // создаем массив состояний элементов массива, изначально все элементы имеют состояние Default
 
-    let i = 0;
-    let j = newCircles.length - 1;
-
-    const intervalId = setInterval(() => {
-      newStates[i] = ElementStates.Default;
-      newStates[j] = ElementStates.Default;
-      if (i < j) {
-        swap(newCircles, i, j);
-
-        newStates[i] = ElementStates.Changing;
-        newStates[j] = ElementStates.Changing;
-
-        setArrStr([...newCircles]); // Обновляем состояние массива arrStr с новым порядком элементов
-        setArrStates([...newStates]); // Обновляем состояние массива arrStates с новыми состояниями элементов
-
-        i++;
-        j--;
-
-        newStates[i - 1] = ElementStates.Modified;
-        newStates[j + 1] = ElementStates.Modified;
-      } else {
-        clearInterval(intervalId);
-        newStates = newCircles.map(() => ElementStates.Modified); // установим состояние Modified для всех элементов массива после завершения сортировки
-        setArrStates([...newStates]); // Обновляем состояние массива arrStates с новыми состояниями элементов
-        setIsActive(false);
-      }
-    }, 1000);
+    reverseAlg(
+      string.split(""),
+      newStates,
+      setArrStates,
+      setArrStr,
+      setIsActive
+    );
     setString("");
   };
 
