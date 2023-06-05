@@ -20,7 +20,6 @@ const App = () => {
           <Route path="/fibonacci" element={<FibonacciPage />} />
           <Route path="/list" element={<ListPage />} />
           <Route path="/queue" element={<QueuePage />} />
-          <Route path="/string" element={<StringComponent />} />
           <Route path="/sorting" element={<SortingPage />} />
           <Route path="/stack" element={<StackPage />} />
         </Routes>
