@@ -47,11 +47,12 @@ export const StackPage: React.FC = () => {
       return;
     }
 
-    setArrStates([
-      ...arrStates.slice(0, arrStates.length - 1),
-      ElementStates.Changing,
-    ]);
-    await delay(1000);
+    const states = [...arrStates];
+    states[stack.getElements().length - 1] = ElementStates.Changing;
+
+    setArrStates([...states]);
+
+    await delay(500);
     stack.pop();
     setStack(stack);
     setArrStates([...arrStates.slice(0, arrStates.length - 1)]);
@@ -77,6 +78,7 @@ export const StackPage: React.FC = () => {
       if (peakIndex === index) {
         return (
           <Circle
+            extraClass={`circle top ${arrStates[index]}`}
             tail={`${index}`}
             head={"top"}
             letter={i}
@@ -86,7 +88,13 @@ export const StackPage: React.FC = () => {
         );
       }
       return (
-        <Circle tail={`${index}`} letter={i} key={k} state={arrStates[index]} />
+        <Circle
+          extraClass={`circle ${arrStates[index]}`}
+          tail={`${index}`}
+          letter={i}
+          key={k}
+          state={arrStates[index]}
+        />
       );
     });
   };
@@ -123,7 +131,7 @@ export const StackPage: React.FC = () => {
             onClick={handleClearBtn}
           />
         </div>
-        <div className={css.circles}>{getCircles()}</div>
+        <div className={`circles ${css.circles}`}>{getCircles()}</div>
       </div>
     </SolutionLayout>
   );

@@ -1,8 +1,4 @@
-module.exports = {
-    "plugins": [
-        "cypress"
-    ],
-    "extends": [
-        "plugin:cypress/recommended"
-    ]
+export default {
+  "plugins": ["cypress"],
+  "extends": ["plugin:cypress/recommended"]
 }

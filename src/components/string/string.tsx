@@ -48,6 +48,7 @@ export const StringComponent: React.FC = () => {
       const k = index;
       return (
         <Circle
+          extraClass={`${arrStates[index]}`}
           state={arrStates[index]}
           key={k}
           letter={l}
@@ -75,7 +76,7 @@ export const StringComponent: React.FC = () => {
             disabled={string === ""}
           />
         </div>
-        <div className={css.circles}>{getCircles(arrStr)}</div>
+        <div className={`circles ${css.circles}`}>{getCircles(arrStr)}</div>
       </div>
     </SolutionLayout>
   );

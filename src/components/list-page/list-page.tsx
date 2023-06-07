@@ -36,7 +36,10 @@ export const ListPage: React.FC = () => {
   const listCircles = list.getElements().map((l, index) => {
     if (miniCircles[index]) {
       return (
-        <div key={index} className={css.circle}>
+        <div
+          key={index}
+          className={`circle headElement ${arrStates[index]} ${css.circle}`}
+        >
           <Circle
             head={
               <Circle
@@ -57,7 +60,10 @@ export const ListPage: React.FC = () => {
     }
     if (downMiniCircles[index]) {
       return (
-        <div key={index} className={css.circle}>
+        <div
+          key={index}
+          className={`circle tailElement ${arrStates[index]} ${css.circle}`}
+        >
           <Circle
             tail={
               <Circle
@@ -79,7 +85,10 @@ export const ListPage: React.FC = () => {
 
     if (list.getElements().length - 1 === index) {
       return (
-        <div key={index} className={css.circle}>
+        <div
+          key={index}
+          className={`circle ${arrStates[index]} tail ${css.circle}`}
+        >
           <Circle
             tail="tail"
             key={index}
@@ -94,7 +103,10 @@ export const ListPage: React.FC = () => {
     if (list.getHead()) {
       if (list.getHead()?.index === index) {
         return (
-          <div key={index} className={css.circle}>
+          <div
+            key={index}
+            className={`circle ${arrStates[index]} head ${css.circle}`}
+          >
             <Circle
               head={"head"}
               key={index}
@@ -108,7 +120,7 @@ export const ListPage: React.FC = () => {
       }
     }
     return (
-      <div key={index} className={css.circle}>
+      <div key={index} className={`circle ${arrStates[index]} ${css.circle}`}>
         <Circle key={index} letter={l} state={arrStates[index]} index={index} />
         {len - 1 !== index ? <ArrowIcon /> : null}
       </div>
@@ -328,7 +340,7 @@ export const ListPage: React.FC = () => {
             disabled={isActive || indexString !== "" || len < 1}
             isLoader={btns.delHead}
             onClick={deleteToHead}
-            text={"Удалить в head"}
+            text={"Удалить из head"}
           />
           <Button
             disabled={isActive || indexString !== "" || len < 1}
@@ -369,7 +381,7 @@ export const ListPage: React.FC = () => {
             }
           />
         </div>
-        <div className={css.circles}>{listCircles}</div>
+        <div className={`circles ${css.circles}`}>{listCircles}</div>
       </div>
     </SolutionLayout>
   );

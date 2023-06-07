@@ -51,7 +51,6 @@ export class Queue<T> implements IQueue<T> {
   };
 
   getTail = () => {
-    if (this.tail === 0) return this.size;
     return this.tail;
   };
 

@@ -1,6 +1,7 @@
 import { resolve } from "path";
 import { ElementStates } from "../types/element-states";
 import { swap } from "./swap";
+import { delay } from "./delay";
 
 export const reverseAlg = async (
   arr: string[],
@@ -17,7 +18,7 @@ export const reverseAlg = async (
   let j = arr.length - 1;
 
   if (states) {
-    const intervalId = setInterval(() => {
+    const intervalId = setInterval(async () => {
       states![i] = ElementStates.Default;
       states![j] = ElementStates.Default;
       if (i < j) {

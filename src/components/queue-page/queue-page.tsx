@@ -40,6 +40,7 @@ export const QueuePage: React.FC = () => {
 
     const arr = [...arrStates];
     const index = queue.getTail();
+    console.log(index)
     queue.enqueue(string);
     arr[index] = ElementStates.Changing;
     setArrStates(arr);
@@ -89,8 +90,10 @@ export const QueuePage: React.FC = () => {
 
       if (item) {
         if (index === headIndex && index !== tailIndex) {
+          console.log(headIndex === index);
           return (
             <Circle
+              extraClass={`circle head ${arrStates[index]}`}
               letter={item}
               head={"head"}
               key={key}
@@ -101,6 +104,7 @@ export const QueuePage: React.FC = () => {
         } else if (index === tailIndex && index !== headIndex) {
           return (
             <Circle
+              extraClass={`circle tail ${arrStates[index]}`}
               letter={item}
               key={key}
               tail={`tail`}
@@ -111,6 +115,7 @@ export const QueuePage: React.FC = () => {
         } else if (index === tailIndex && index === headIndex) {
           return (
             <Circle
+              extraClass={`circle head tail ${arrStates[index]}`}
               letter={item}
               head={"head"}
               key={key}
@@ -122,6 +127,7 @@ export const QueuePage: React.FC = () => {
         } else {
           return (
             <Circle
+              extraClass={`circle ${arrStates[index]}`}
               letter={item}
               key={key}
               index={index}
@@ -130,7 +136,7 @@ export const QueuePage: React.FC = () => {
           );
         }
       } else {
-        return <Circle key={key} tail={`${index}`} />;
+        return <Circle state={arrStates[index]} extraClass={`circle ${arrStates[index]}`} key={key} tail={`${index}`} />;
       }
     });
 
@@ -169,7 +175,7 @@ export const QueuePage: React.FC = () => {
             onClick={handleClearBtn}
           />
         </div>
-        <div className={css.circles}>{getCircles()}</div>
+        <div className={`circles ${css.circles}`}>{getCircles()}</div>
       </div>
     </SolutionLayout>
   );
