@@ -1,0 +1,23 @@
+.wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.menu {
+    display: flex;
+    gap: 80px;
+}
+
+.circles {
+    display: flex;
+    gap: 16px;
+}
+
+.main {
+    max-width: 500px;
+    display: flex;
+    gap: 16px;
+}
