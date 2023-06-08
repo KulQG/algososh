@@ -1,6 +1,6 @@
 describe('app works correctly with routes', () => {
   before(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('/');
   });
 
   it('should open main page by default', () => {
@@ -8,32 +8,32 @@ describe('app works correctly with routes', () => {
   });
 
   it('should navigate to the recursion page', () => {
-    cy.visit('http://localhost:3000/recursion');
+    cy.visit('recursion');
     cy.contains('Строка');
   });
 
   it('should navigate to the fibonacci page', () => {
-    cy.visit('http://localhost:3000/fibonacci');
+    cy.visit('fibonacci');
     cy.contains('Фибоначчи');
   });
 
   it('should navigate to the list page', () => {
-    cy.visit('http://localhost:3000/list');
+    cy.visit('list');
     cy.contains('список');
   });
 
   it('should navigate to the queue page', () => {
-    cy.visit('http://localhost:3000/queue');
+    cy.visit('queue');
     cy.contains('Очередь');
   });
 
   it('should navigate to the sorting page', () => {
-    cy.visit('http://localhost:3000/sorting');
+    cy.visit('sorting');
     cy.contains('Сортировка');
   });
 
   it('should navigate to the stack page', () => {
-    cy.visit('http://localhost:3000/stack');
+    cy.visit('stack');
     cy.contains('Стек');
   });
 

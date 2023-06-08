@@ -1,6 +1,8 @@
+const circles = '.circles'
+
 describe('string component works correctly', () => {
   before(() => {
-    cy.visit('http://localhost:3000/recursion');
+    cy.visit('recursion');
   })
 
   it('disables add button when input is empty', () => {
@@ -13,7 +15,7 @@ describe('string component works correctly', () => {
 
 
   it('reverses the string correctly', () => {
-    cy.visit('http://localhost:3000/recursion');
+    cy.visit('recursion');
 
     cy.get('input')
       .type(inputString)
@@ -23,7 +25,7 @@ describe('string component works correctly', () => {
 
     cy.wait(1000)
 
-    cy.get('.circles').each((circle, index) => {
+    cy.get(circles).each((circle, index) => {
       const letter = reversedString.slice(index)
 
       const c = cy.wrap(circle)
@@ -32,7 +34,7 @@ describe('string component works correctly', () => {
   });
 
   it('animations works correctly', () => {
-    cy.visit('http://localhost:3000/recursion');
+    cy.visit('recursion');
 
     cy.get('input')
       .type(inputString)
@@ -42,29 +44,29 @@ describe('string component works correctly', () => {
 
     cy.wait(1000)
 
-    cy.get('.circles').children(0).should('have.class', 'changing')
-    cy.get('.circles').children(reversedString.length - 1).should('have.class', 'changing')
+    cy.get(circles).children(0).should('have.class', 'changing')
+    cy.get(circles).children(reversedString.length - 1).should('have.class', 'changing')
 
     cy.wait(1000)
 
-    cy.get('.circles').children(0).should('have.class', 'modified')
-    cy.get('.circles').children(reversedString.length - 1).should('have.class', 'modified')
+    cy.get(circles).children(0).should('have.class', 'modified')
+    cy.get(circles).children(reversedString.length - 1).should('have.class', 'modified')
 
-    cy.get('.circles').children(1).should('have.class', 'changing')
-    cy.get('.circles').children(reversedString.length - 2).should('have.class', 'changing')
-
-    cy.wait(1000)
-
-    cy.get('.circles').children(1).should('have.class', 'modified')
-    cy.get('.circles').children(reversedString.length - 2).should('have.class', 'modified')
+    cy.get(circles).children(1).should('have.class', 'changing')
+    cy.get(circles).children(reversedString.length - 2).should('have.class', 'changing')
 
     cy.wait(1000)
 
-    cy.get('.circles').children(2).should('have.class', 'modified')
+    cy.get(circles).children(1).should('have.class', 'modified')
+    cy.get(circles).children(reversedString.length - 2).should('have.class', 'modified')
+
+    cy.wait(1000)
+
+    cy.get(circles).children(2).should('have.class', 'modified')
   })
 
   it ('algoritm finished correctly', () => {
-    cy.visit('http://localhost:3000/recursion');
+    cy.visit('recursion');
 
     cy.get('input')
       .type(inputString)
@@ -74,7 +76,7 @@ describe('string component works correctly', () => {
 
     cy.wait(1000 * reversedString.length).then(() => {
 
-      cy.get('.circles').children().each((circle, index) => {
+      cy.get(circles).children().each((circle, index) => {
         cy.wrap(circle).should('have.class', 'modified')
       })
     })
