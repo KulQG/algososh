@@ -8,6 +8,7 @@ import { Column } from "../ui/column/column";
 import { ElementStates } from "../../types/element-states";
 import { swap } from "../../constants/swap";
 import { randomArr } from "../../constants/randomArr";
+import { TCallBacks, bubbleSort } from "../../constants/sorting";
 
 export const SortingPage: React.FC = () => {
   const [randomArray, setRandomArray] = useState<{ arr: number[] }>({
@@ -50,58 +51,69 @@ export const SortingPage: React.FC = () => {
     order === "asc" ? setIsActiveAsc(boo) : setIsActiveDesc(boo);
   }
 
-  const bubbleSort = (order: "asc" | "desc") => {
-    setIsActive(true);
-    AscDeskSetSwitcher(order, true);
+  const callBacks: TCallBacks = {
+    setIsActive,
+    AscDeskSetSwitcher,
+    setArrStates,
+    setRandomArray
+  }
 
-    const newColumns = [...randomArray.arr];
+  const bubbleSorty = (order: 'asc' | 'desc') => {
+    bubbleSort(order, randomArray, callBacks)
+  }
 
-    let newStates: ElementStates[] = newColumns.map(
-      () => ElementStates.Default
-    );
+  // const bubbleSorty = (order: "asc" | "desc") => {
+  //   setIsActive(true);
+  //   AscDeskSetSwitcher(order, true);
 
-    let i = 0;
-    let j = newColumns.length - 1;
+  //   const newColumns = [...randomArray.arr];
 
-    const intervalId = setInterval(() => {
-      if (i < j) {
-        newStates[i] = ElementStates.Changing;
-        newStates[i + 1] = ElementStates.Changing;
+  //   let newStates: ElementStates[] = newColumns.map(
+  //     () => ElementStates.Default
+  //   );
 
-        const shouldSwap =
-          order === "asc"
-            ? newColumns[i] > newColumns[i + 1]
-            : newColumns[i] < newColumns[i + 1];
+  //   let i = 0;
+  //   let j = newColumns.length - 1;
 
-        if (shouldSwap) {
-          swap(newColumns, i, i + 1);
+  //   const intervalId = setInterval(() => {
+  //     if (i < j) {
+  //       newStates[i] = ElementStates.Changing;
+  //       newStates[i + 1] = ElementStates.Changing;
 
-          setRandomArray({ arr: [...newColumns] });
-          setArrStates([...newStates]);
+  //       const shouldSwap =
+  //         order === "asc"
+  //           ? newColumns[i] > newColumns[i + 1]
+  //           : newColumns[i] < newColumns[i + 1];
 
-          i++;
-        } else {
-          i++;
-        }
+  //       if (shouldSwap) {
+  //         swap(newColumns, i, i + 1);
 
-        newStates[i - 1] = ElementStates.Default;
-        newStates[i] = ElementStates.Modified;
-      } else {
-        clearInterval(intervalId);
+  //         setRandomArray({ arr: [...newColumns] });
+  //         setArrStates([...newStates]);
 
-        newStates = newColumns.map(() => ElementStates.Modified);
+  //         i++;
+  //       } else {
+  //         i++;
+  //       }
 
-        setArrStates([...newStates]);
-        setIsActive(false);
-        AscDeskSetSwitcher(order, false);
-      }
+  //       newStates[i - 1] = ElementStates.Default;
+  //       newStates[i] = ElementStates.Modified;
+  //     } else {
+  //       clearInterval(intervalId);
 
-      if (i >= j) {
-        i = 0;
-        j--;
-      }
-    }, 250);
-  };
+  //       newStates = newColumns.map(() => ElementStates.Modified);
+
+  //       setArrStates([...newStates]);
+  //       setIsActive(false);
+  //       AscDeskSetSwitcher(order, false);
+  //     }
+
+  //     if (i >= j) {
+  //       i = 0;
+  //       j--;
+  //     }
+  //   }, 250);
+  // };
 
   const selectionSort = (order: "asc" | "desc") => {
     setIsActive(true);
@@ -196,7 +208,7 @@ export const SortingPage: React.FC = () => {
 
   const sorting = (comparison: "asc" | "desc") => {
     if (method === "bubble") {
-      bubbleSort(comparison);
+      bubbleSorty(comparison);
     } else {
       selectionSort(comparison);
     }

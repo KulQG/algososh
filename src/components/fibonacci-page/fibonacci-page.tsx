@@ -31,23 +31,19 @@ export const FibonacciPage: React.FC = () => {
     setNumToShow(0);
   };
 
-  // Эффект для постепенного отображения элементов последовательности Фибоначчи
   useEffect(() => {
-    // Проверяем, активен ли алгоритм и не отображены ли все элементы последовательности
     if (isActive && numToShow < fibonacci.length) {
       setTimeout(() => {
-        // Увеличиваем количество элементов, которые будут отображены
         setNumToShow(numToShow + 1);
-      }, 500); // задержка в 1 секунду между отображением элементов
+      }, 500);
     } else {
-      // Если все элементы последовательности отображены, то отключаем выполнение алгоритма
       setIsActive(false);
     }
   }, [isActive, numToShow, fibonacci]);
 
   const getCircles = () => {
     return fibonacci.slice(0, numToShow).map((num, index) => {
-      return <Circle key={index} letter={`${num}`} tail={`${index}`} />;
+      return <Circle extraClass='circle' key={index} letter={`${num}`} tail={`${index}`} />;
     });
   };
 
@@ -64,14 +60,14 @@ export const FibonacciPage: React.FC = () => {
             value={string}
           />
           <Button
-            text="Развернуть"
+            text="Рассчитать"
             type="button"
             isLoader={isActive}
             onClick={handleBtn}
             disabled={string === "" || +string > 19}
           />
         </div>
-        <div className={css.circles}>{getCircles()}</div>
+        <div className={`circles ${css.circles}`}>{getCircles()}</div>
       </div>
     </SolutionLayout>
   );
